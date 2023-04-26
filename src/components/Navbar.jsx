@@ -12,7 +12,7 @@ const Navbar = () => {
 
   //* with custom hook
   // const { currentUser } = useAuthContext();
-  // const currentUser = { displayName: "hakan bilgi" };
+  // const currentUser = { displayName: "felix franko" };
   // const currentUser = false;
   const fav = favorites.length;
   return (
@@ -22,8 +22,8 @@ const Navbar = () => {
         data-te-navbar-ref=""
       >
         <div className="flex w-full flex-wrap items-center justify-between px-6">
-          <Link className="pr-2 text-2xl font-semibold" to="/" title="Home">
-            MOVIE APP
+          <Link className="pr-2 text-2xl font-semibold" to="/">
+            Movie App
           </Link>
           <div className="relative flex items-center">
             {currentUser && (
@@ -46,10 +46,7 @@ const Navbar = () => {
                   alt="user"
                   loading="lazy"
                   referrerPolicy="no-referrer"
-                  title="LogOut"
-                  onClick={() => logOut()}
                 />
-                
               </span>
               <ul
                 className="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
