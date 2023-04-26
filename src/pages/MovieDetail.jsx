@@ -4,17 +4,17 @@ import { Link, useParams } from "react-router-dom";
 import VideoSection from "../components/VideoSection";
 
 const MovieDetail = () => {
+  const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState("");
   const [videoKey, setVideoKey] = useState();
-  const { id } = useParams();
 
   const {
     title,
     poster_path,
     overview,
     vote_average,
-    vote_count,
     release_date,
+    vote_count,
   } = movieDetails;
 
   const API_KEY = process.env.REACT_APP_TMDB_KEY;
@@ -36,10 +36,10 @@ const MovieDetail = () => {
   }, [movieDetailBaseUrl, videoUrl]);
 
   return (
-    <div className="container px-10 mx-auto py-5">
+    <div className="md:container px-10 mx-auto py-5">
       <h1 className="text-center text-white text-3xl">{title}</h1>
       {videoKey && <VideoSection videoKey={videoKey} />}
-      <div className="container flex justify-center px-10">
+      <div className="md:container flex justify-center px-10">
         <div className="flex flex-col lg:flex-row max-w-6xl rounded-lg bg-gray-100 shadow-lg">
           <img
             className=" lg:w-1/3 h-96 lg:h-[600px] object-cover rounded-t-lg md:rounded-none md:rounded-l-lg"

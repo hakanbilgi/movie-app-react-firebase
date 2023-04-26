@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GoogleIcon from "../assets/icons/GoogleIcon";
-import { createUser, signUpWithGoogle } from "../auth/firebase";
+import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
   //* ayrı stateler
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   //* birleştirilmiş state
   // const [info, setInfo] = useState({
   //   firstName: "",
@@ -17,98 +16,92 @@ const Register = () => {
   //   email: "",
   //   password: "",
   // });
+  const navigate = useNavigate();
+  const { createUser, signUpProvider } = useContext(AuthContext);
+
+  // const { email, password, firstName, lastName } = info;
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     const displayName = `${firstName} ${lastName}`;
-    createUser(email, password, navigate, displayName);
-    console.log(firstName, lastName);
-  };
+    e.preventDefault();
+    createUser(email, password, displayName, navigate);
 
-  const handleGoogleProvider = () => {
-    signUpWithGoogle(navigate);
+    console.log(firstName, lastName);
   };
 
   // const hadleChange = (e) =>
   //   setInfo({ ...info, [e.target.id]: e.target.value });
 
+  const handleProviderLogin = () => {
+    signUpProvider();
+  };
+
   return (
     <div className="flex justify-center">
       <div className="form-image hidden md:block">
         <img
-          src="https://picsum.photos/800/800"
-          alt="sample-movie"
+          src={"https://picsum.photos/800/800"}
           className="object-cover h-screen w-full"
+          alt="sample-movie"
         />
       </div>
-      <div className="overflow-hidden flex-1 h-screen justify-center items-center dark:bg-[#23242a]">
-        <div
-          className={`mt-[3vh] mx-auto overflow-hidden relative w-[380px] h-[620px] rounded-[8px] bg-gray-100 dark:bg-[#1c1c1c] before:content-[""] before:absolute before:w-[380px] before:h-[420px] before:top-[-50%] before:left-[-50%] after:content-[""] after:absolute after:w-[380px] after:h-[420px] after:top-[-50%] after:left-[-50%] custom-linear-gradient`}
-        >
-          <form
-            className="absolute inset-[2px] rounded-[8px] bg-gray-100 dark:bg-[#28292d] z-[10] form flex flex-col p-20"
-            onSubmit={handleSubmit}
-          >
-            <h2 className="text-[#ff4b45] text-2xl font-[500] text-center tracking-[0.1em]">
+      <div className="overflow-hidden flex-1 h-screen justify-center items-center dark:bg-gray-dark-main">
+        <div className={`form-container mt-[5vh] w-[380px] h-[580px] `}>
+          <form onSubmit={handleSubmit}>
+            <h2 className="text-red-main text-2xl font-[500] text-center tracking-[0.1em] mb-3">
               Sign Up
             </h2>
-            <div className="relative w-[300px] mt-[35px] inputbox">
+            <div className="relative z-0 w-full mb-6 group">
               <input
+                name="floating_text"
+                className="peer"
                 type="text"
                 required
-                className="relative w-[100%] inputbox-input bg-transparent outline-none text-[#23242a] font-[1em] tracking-[0.05em]"
+                placeholder=" "
                 onChange={(e) => setFirstName(e.target.value)}
               />
-              <span className="absolute left-0 inputbox-span font-[1em] text-[#8f8f8f] tracking-[0.05em]">
-                First Name
-              </span>
-              <i className="absolute left-0 bottom-0 w-[100%] h-[2px] bg-[#ff4b45] rounded-[4px]"></i>
+              <label htmlFor="floating_text">First Name</label>
             </div>
-            <div className="relative w-[300px] mt-[35px] inputbox">
+            <div className="relative z-0 w-full mb-6 group">
               <input
+                name="floating_text"
+                className="peer"
                 type="text"
                 required
-                className="relative w-[100%] inputbox-input bg-transparent outline-none text-[#23242a] font-[1em] tracking-[0.05em]"
+                placeholder=" "
                 onChange={(e) => setLastName(e.target.value)}
               />
-              <span className="absolute left-0 inputbox-span font-[1em] text-[#8f8f8f] tracking-[0.05em]">
-                Last Name
-              </span>
-              <i className="absolute left-0 bottom-0 w-[100%] h-[2px] bg-[#ff4b45] rounded-[4px]"></i>
+              <label htmlFor="floating_text">Last Name</label>
             </div>
-            <div className="relative w-[300px] mt-[35px] inputbox">
+            <div className="relative z-0 w-full mb-6 group">
               <input
+                name="floating_email"
+                className="peer"
                 type="email"
+                placeholder=" "
                 required
-                className="relative w-[100%] inputbox-input bg-transparent outline-none text-[#23242a] font-[1em] tracking-[0.05em]"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <span className="absolute left-0 inputbox-span font-[1em] text-[#8f8f8f] tracking-[0.05em]">
-                Email
-              </span>
-              <i className="absolute left-0 bottom-0 w-[100%] h-[2px] bg-[#ff4b45] rounded-[4px]"></i>
+              <label htmlFor="floating_email">Email</label>
             </div>
-            <div className="relative w-[300px] mt-[35px] inputbox">
+            <div className="relative z-0 w-full mb-6 group">
               <input
+                name="floating_password"
+                className="peer"
                 type="password"
+                placeholder=" "
                 required
-                className="relative w-[100%] inputbox-input bg-transparent outline-none text-[#23242a] font-[1em] tracking-[0.05em]"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span className="absolute left-0 inputbox-span font-[1em] text-[#8f8f8f] tracking-[0.05em]">
-                Password
-              </span>
-              <i className="absolute left-0 bottom-0 w-[100%] h-[2px] bg-[#ff4b45] rounded-[4px]"></i>
+              <label htmlFor="floating_password">Password</label>
             </div>
-            <input
-              className="border-none outline-none bg-[#ff4b45] custom-input w-[100px] mt-[10px] rounded-[4px] font-[600] cursor-pointer"
-              type="submit"
-              value="Register"
-            />
+            <button className="btn-danger" type="submit">
+              Register
+            </button>
             <button
-              className="flex justify-between border-none outline-none bg-[#ff4b45] custom-input w-[300px] mt-[15px] rounded-[4px] font-[600] cursor-pointer"
+              className="flex justify-between text-center items-center btn-danger"
               type="button"
-              onClick={handleGoogleProvider}
+              onClick={handleProviderLogin}
             >
               Continue with Google
               <GoogleIcon color="currentColor" />

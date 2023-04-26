@@ -1,43 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 import MovieCard from "../components/MovieCard";
-import { AuthContext } from "../context/AuthContextProvider";
+import { AuthContext } from "../context/AuthContext";
+import { MovieContext } from "../context/MovieContext";
 import { toastWarnNotify } from "../helpers/ToastNotify";
 
+// const API_KEY = "d6278b3dc3e6f8f8376a89851c3f8c8f";
 const API_KEY = process.env.REACT_APP_TMDB_KEY;
-const FEATURED_API = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
 const SEARCH_API = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
 
 const Main = () => {
-  const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(false);
   const { currentUser } = useContext(AuthContext);
-
-  useEffect(() => {
-    getMovies(FEATURED_API);
-  }, []);
-
-  const getMovies = (API) => {
-    setLoading(true);
-    axios
-      .get(API)
-      .then((res) => setMovies(res.data.results))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
+  const { movies, getMovies, loading } = useContext(MovieContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchTerm && currentUser) {
       getMovies(SEARCH_API + searchTerm);
-      setSearchTerm("");
     } else if (!currentUser) {
       toastWarnNotify("Please log in to search a movie");
-      // alert("please log in to see details");
+      // alert("Please log in to search a movie");
     } else {
       toastWarnNotify("Please enter a text");
-      // alert("please enter a text");
+      // alert("Please enter a text");
     }
   };
 
@@ -46,12 +31,12 @@ const Main = () => {
       <form className="flex justify-center p-2" onSubmit={handleSubmit}>
         <input
           type="search"
-          className="w-80 h-8 rounded-md outline-none border p-1 m-2"
+          className="w-80 h-8 rounded-md p-1 m-2"
           placeholder="Search a movie..."
-          onChange={(e) => setSearchTerm(e.target.value)}
           value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="dark:text-white" type="submit">
+        <button className="btn-danger-bordered" type="submit">
           Search
         </button>
       </form>

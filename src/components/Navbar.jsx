@@ -1,38 +1,42 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext, useAuthContext } from "../context/AuthContext";
 import avatar from "../assets/icons/avatar.png";
-import { logOut } from "../auth/firebase";
-import { AuthContext } from "../context/AuthContextProvider";
 import Switch from "./Switch";
+import FavComp from "./FavComp";
+import { MovieContext } from "../context/MovieContext";
 
 const Navbar = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logOut } = useContext(AuthContext);
+  const { favorites } = useContext(MovieContext);
+
   //* with custom hook
   // const { currentUser } = useAuthContext();
-
   // const currentUser = { displayName: "felix franko" };
   // const currentUser = false;
+  const fav = favorites.length;
   return (
     <>
-      <nav className="w-full flex flex-wrap items-center justify-between py-3 bg-white dark:bg-gray-900 dark:text-white shadow-lg navbar navbar-expand-lg fixed-top">
-        <div className="container-fluid w-full flex items-center justify-between px-6">
-          <Link className="text-2xl  pr-2 font-semibold" to="/">
+      <nav
+        className="flex w-full flex-wrap items-center justify-between bg-neutral-100 dark:bg-gray-900 py-3 dark:text-white shadow-lg lg:flex-wrap lg:justify-start fixed top-0 z-20"
+        data-te-navbar-ref=""
+      >
+        <div className="flex w-full flex-wrap items-center justify-between px-6">
+          <Link className="pr-2 text-2xl font-semibold" to="/">
             React Movie App
           </Link>
-          {/* Collapsible wrapper */}
-          {/* Right elements */}
-          <div className="flex items-center relative">
-            {/* Icon */}
+          <div className="relative flex items-center">
             {currentUser && (
               <h5 className="mr-2 capitalize">{currentUser?.displayName}</h5>
             )}
             <Switch />
-            <div className="dropdown relative">
+            <FavComp fav={fav} />
+            <div className="relative" data-te-dropdown-ref="">
               <span
-                className="dropdown-toggle flex items-center hidden-arrow"
+                className="hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
                 id="dropdownMenuButton2"
                 role="button"
-                data-bs-toggle="dropdown"
+                data-te-dropdown-toggle-ref=""
                 aria-expanded="false"
               >
                 <img
@@ -45,30 +49,34 @@ const Navbar = () => {
                 />
               </span>
               <ul
-                className="dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none left-auto right-0"
+                className="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
                 aria-labelledby="dropdownMenuButton2"
+                data-te-dropdown-menu-ref=""
               >
                 <li>
                   <Link
-                    className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                    className="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
                     to="/register"
+                    data-te-dropdown-item-ref=""
                   >
                     Register
                   </Link>
                 </li>
                 <li>
                   <Link
-                    className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                    className="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
                     to="/login"
+                    data-te-dropdown-item-ref=""
                   >
                     Login
                   </Link>
                 </li>
                 <li>
                   <span
-                    className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                    className="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
                     role="button"
                     onClick={() => logOut()}
+                    data-te-dropdown-item-ref=""
                   >
                     Logout
                   </span>
@@ -76,7 +84,6 @@ const Navbar = () => {
               </ul>
             </div>
           </div>
-          {/* Right elements */}
         </div>
       </nav>
       <div className="h-[52px]"></div>
