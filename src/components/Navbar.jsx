@@ -12,7 +12,7 @@ const Navbar = () => {
 
   //* with custom hook
   // const { currentUser } = useAuthContext();
-  // const currentUser = { displayName: "felix franko" };
+  // const currentUser = { displayName: "hakan bilgi" };
   // const currentUser = false;
   const fav = favorites.length;
   return (
@@ -23,7 +23,7 @@ const Navbar = () => {
       >
         <div className="flex w-full flex-wrap items-center justify-between px-6">
           <Link className="pr-2 text-2xl font-semibold" to="/">
-            React Movie App
+            Movie App
           </Link>
           <div className="relative flex items-center">
             {currentUser && (
