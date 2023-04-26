@@ -22,7 +22,7 @@ const Navbar = () => {
         data-te-navbar-ref=""
       >
         <div className="flex w-full flex-wrap items-center justify-between px-6">
-          <Link className="pr-2 text-2xl font-semibold" to="/">
+          <Link className="pr-2 text-2xl font-semibold" to="/" title="Home">
             MOVIE APP
           </Link>
           <div className="relative flex items-center">
@@ -46,6 +46,7 @@ const Navbar = () => {
                   alt="user"
                   loading="lazy"
                   referrerPolicy="no-referrer"
+                  title="LogOut"
                   onClick={() => logOut()}
                 />
                 

@@ -9,6 +9,7 @@ const FavComp = ({ fav }) => {
     <span
       className="hidden-arrow mr-4 flex items-center opacity-60 hover:opacity-80 focus:opacity-80"
       role="button"
+      title="Favorites"
       onClick={() => navigate("/favorites")}
     >
       <FavIcon />
