@@ -46,7 +46,9 @@ const Navbar = () => {
                   alt="user"
                   loading="lazy"
                   referrerPolicy="no-referrer"
+                  onClick={() => logOut()}
                 />
+                
               </span>
               <ul
                 className="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
