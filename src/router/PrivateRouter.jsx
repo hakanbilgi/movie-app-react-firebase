@@ -13,7 +13,8 @@ function PrivateRouter() {
   return currentUser ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" state={{ from: location.pathname }} replace />
+    <Navigate to="/login" state={{ from: location.pathname }} replace /> 
+    //* replace niçin kullandık? history de back e basınca geri gitmesi için...
   );
 }
 export default PrivateRouter;
