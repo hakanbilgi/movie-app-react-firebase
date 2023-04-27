@@ -17,6 +17,7 @@ const Main = () => {
     e.preventDefault();
     if (searchTerm && currentUser) {
       getMovies(SEARCH_API + searchTerm);
+      setSearchTerm("");
     } else if (!currentUser) {
       toastWarnNotify("Please log in to search a movie");
       // alert("Please log in to search a movie");
