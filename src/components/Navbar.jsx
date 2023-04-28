@@ -23,7 +23,7 @@ const Navbar = () => {
       >
         <div className="flex w-full flex-wrap items-center justify-between px-6">
           <Link className="pr-2 text-2xl font-semibold" to="/">
-            Movie App
+            Movie App - HB
           </Link>
           <div className="relative flex items-center">
             {currentUser && (
